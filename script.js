@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // 各ステップの次へボタンを有効にする関数
+  // 次のステップへ進む関数
   function nextStep(stepNumber) {
     // すべてのステップを非表示にする
     for (let i = 1; i <= 6; i++) {
