@@ -24,7 +24,7 @@
     <h2>ステップ 1</h2>
     <iframe src="https://docs.google.com/document/d/e/2PACX-1vTne29t3wV1TZk1393D4YVlSJguE_x14OjBskkN6eLDSW6WhJ_kiVauP4jqJkDJ0uxyLmNywL6A1eTx/pub?embedded=true"></iframe>
     <input type="text" id="input1" placeholder="完了と入力してください">
-    <button id="nextButton" onclick="nextStep(2)" disabled>次へ</button>
+    <button id="nextButton1" onclick="nextStep(2)" disabled>次へ</button>
     <button onclick="prevStep(0)">戻る</button>
   </div>
 
@@ -32,7 +32,7 @@
     <h2>ステップ 2</h2>
     <iframe src="https://docs.google.com/document/d/e/2PACX-1vQAEYIji4Q9EHRe_Tn9sXka_XnHun3AsrOVv1dOgWjRWr1ZN5hTzk18qB9g1myBH3_GHFCJY3XHbBSu/pub?embedded=true"></iframe>
     <input type="text" id="input2" placeholder="完了と入力してください">
-    <button id="nextButton" onclick="nextStep(3)" disabled>次へ</button>
+    <button id="nextButton2" onclick="nextStep(3)" disabled>次へ</button>
     <button onclick="prevStep(1)">戻る</button>
   </div>
 
@@ -40,7 +40,7 @@
     <h2>ステップ 3</h2>
     <iframe src="https://docs.google.com/document/d/e/2PACX-1vQzQ_lgw1ze36jyojRzVMY7IoBR2ZWI1HwpP42xgjD4IFHlOfIFu5baSOIRP17cCc-vtuH5gPQn-OAk/pub?embedded=true"></iframe>
     <input type="text" id="input3" placeholder="完了と入力してください">
-    <button id="nextButton" onclick="nextStep(4)" disabled>次へ</button>
+    <button id="nextButton3" onclick="nextStep(4)" disabled>次へ</button>
     <button onclick="prevStep(2)">戻る</button>
   </div>
 
@@ -48,7 +48,7 @@
     <h2>ステップ 4</h2>
     <iframe src="https://docs.google.com/document/d/e/2PACX-1vQZguQ9j_VTueyCwR7iUBc7L4stmWUrn0mE_BFMb8-SShRgkZt3V-Xs5l23ivcgPg0A7-bE8fFWR62y/pub?embedded=true"></iframe>
     <input type="text" id="input4" placeholder="完了と入力してください">
-    <button id="nextButton" onclick="nextStep(5)" disabled>次へ</button>
+    <button id="nextButton4" onclick="nextStep(5)" disabled>次へ</button>
     <button onclick="prevStep(3)">戻る</button>
   </div>
 
@@ -56,7 +56,7 @@
     <h2>ステップ 5</h2>
     <iframe src="https://docs.google.com/document/d/e/2PACX-1vR8HQRODU-rZi-o3GMnQS0oPibwvxCHie6IafQb3wIeLJtJ3Ye-pnaSuF82vnoWrQj4e0i6s376_Q0S/pub?embedded=true"></iframe>
     <input type="text" id="input5" placeholder="完了と入力してください">
-    <button id="nextButton" onclick="nextStep(6)" disabled>次へ</button>
+    <button id="nextButton5" onclick="nextStep(6)" disabled>次へ</button>
     <button onclick="prevStep(4)">戻る</button>
   </div>
 
@@ -77,8 +77,6 @@
         }
         // 次のステップを表示
         document.getElementById("step" + stepNumber).style.display = "block";
-        // 次のステップの入力欄を監視
-        enableNextButton(stepNumber);
       }
 
       // 戻るボタンを処理する関数
@@ -89,25 +87,31 @@
         }
         // 前のステップを表示
         document.getElementById("step" + stepNumber).style.display = "block";
-        // 戻るステップの入力欄を監視
-        enableNextButton(stepNumber);
       }
 
-      // 次へボタンの有効化
+      // 入力欄の変更を監視して次へボタンの有効化
       function enableNextButton(stepNumber) {
         const inputField = document.getElementById("input" + stepNumber);
-        const nextButton = document.querySelector("#step" + stepNumber + " button:nth-of-type(1)");
+        const nextButton = document.getElementById("nextButton" + stepNumber);
 
         // 「完了」と入力したら次へボタンを有効にする
-        if (inputField.value === "完了") {
-          nextButton.disabled = false;
-        } else {
-          nextButton.disabled = true;
-        }
+        inputField.addEventListener('input', function() {
+          if (inputField.value === "完了") {
+            nextButton.disabled = false;
+          } else {
+            nextButton.disabled = true;
+          }
+        });
       }
 
       // 最初のステップを表示
       nextStep(1);
+      enableNextButton(1);
+      enableNextButton(2);
+      enableNextButton(3);
+      enableNextButton(4);
+      enableNextButton(5);
+      enableNextButton(6);
     });
   </script>
 </body>
