@@ -5,12 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ステップ順序</title>
   <style>
-    /* 各ステップを見やすくするための簡単なスタイル */
     iframe {
       width: 100%;
       height: 600px;
       border: none;
       margin-bottom: 20px;
+    }
+    .hidden {
+      display: none;
+    }
+    #nextButton:disabled {
+      background-color: gray;
     }
   </style>
 </head>
@@ -18,50 +23,92 @@
   <div id="step1">
     <h2>ステップ 1</h2>
     <iframe src="https://docs.google.com/document/d/e/2PACX-1vTne29t3wV1TZk1393D4YVlSJguE_x14OjBskkN6eLDSW6WhJ_kiVauP4jqJkDJ0uxyLmNywL6A1eTx/pub?embedded=true"></iframe>
-    <button onclick="nextStep(2)">次へ</button>
+    <input type="text" id="input1" placeholder="完了と入力してください">
+    <button id="nextButton" onclick="nextStep(2)" disabled>次へ</button>
+    <button onclick="prevStep(0)">戻る</button>
   </div>
 
-  <div id="step2" style="display:none;">
+  <div id="step2" class="hidden">
     <h2>ステップ 2</h2>
     <iframe src="https://docs.google.com/document/d/e/2PACX-1vQAEYIji4Q9EHRe_Tn9sXka_XnHun3AsrOVv1dOgWjRWr1ZN5hTzk18qB9g1myBH3_GHFCJY3XHbBSu/pub?embedded=true"></iframe>
-    <button onclick="nextStep(3)">次へ</button>
+    <input type="text" id="input2" placeholder="完了と入力してください">
+    <button id="nextButton" onclick="nextStep(3)" disabled>次へ</button>
+    <button onclick="prevStep(1)">戻る</button>
   </div>
 
-  <div id="step3" style="display:none;">
+  <div id="step3" class="hidden">
     <h2>ステップ 3</h2>
     <iframe src="https://docs.google.com/document/d/e/2PACX-1vQzQ_lgw1ze36jyojRzVMY7IoBR2ZWI1HwpP42xgjD4IFHlOfIFu5baSOIRP17cCc-vtuH5gPQn-OAk/pub?embedded=true"></iframe>
-    <button onclick="nextStep(4)">次へ</button>
+    <input type="text" id="input3" placeholder="完了と入力してください">
+    <button id="nextButton" onclick="nextStep(4)" disabled>次へ</button>
+    <button onclick="prevStep(2)">戻る</button>
   </div>
 
-  <div id="step4" style="display:none;">
+  <div id="step4" class="hidden">
     <h2>ステップ 4</h2>
     <iframe src="https://docs.google.com/document/d/e/2PACX-1vQZguQ9j_VTueyCwR7iUBc7L4stmWUrn0mE_BFMb8-SShRgkZt3V-Xs5l23ivcgPg0A7-bE8fFWR62y/pub?embedded=true"></iframe>
-    <button onclick="nextStep(5)">次へ</button>
+    <input type="text" id="input4" placeholder="完了と入力してください">
+    <button id="nextButton" onclick="nextStep(5)" disabled>次へ</button>
+    <button onclick="prevStep(3)">戻る</button>
   </div>
 
-  <div id="step5" style="display:none;">
+  <div id="step5" class="hidden">
     <h2>ステップ 5</h2>
     <iframe src="https://docs.google.com/document/d/e/2PACX-1vR8HQRODU-rZi-o3GMnQS0oPibwvxCHie6IafQb3wIeLJtJ3Ye-pnaSuF82vnoWrQj4e0i6s376_Q0S/pub?embedded=true"></iframe>
-    <button onclick="nextStep(6)">次へ</button>
+    <input type="text" id="input5" placeholder="完了と入力してください">
+    <button id="nextButton" onclick="nextStep(6)" disabled>次へ</button>
+    <button onclick="prevStep(4)">戻る</button>
   </div>
 
-  <div id="step6" style="display:none;">
+  <div id="step6" class="hidden">
     <h2>ステップ 6</h2>
     <iframe src="https://docs.google.com/document/d/e/2PACX-1vTUbWpQwkt1h-p1YU_-3_gbDPvGk08OmVVoiyjKCYFck_DDSGoMKu9FraTl17R18YSrV1JEFfK4jySu/pub?embedded=true"></iframe>
+    <input type="text" id="input6" placeholder="完了と入力してください">
+    <button onclick="prevStep(5)">戻る</button>
   </div>
 
   <script>
-    function nextStep(stepNumber) {
-      // すべてのステップを非表示にする
-      for (let i = 1; i <= 6; i++) {
-        document.getElementById("step" + i).style.display = "none";
+    document.addEventListener('DOMContentLoaded', function() {
+      // 各ステップの次へボタンを有効にする関数
+      function nextStep(stepNumber) {
+        // すべてのステップを非表示にする
+        for (let i = 1; i <= 6; i++) {
+          document.getElementById("step" + i).style.display = "none";
+        }
+        // 次のステップを表示
+        document.getElementById("step" + stepNumber).style.display = "block";
+        // 次のステップの入力欄を監視
+        enableNextButton(stepNumber);
       }
-      // 次のステップを表示
-      document.getElementById("step" + stepNumber).style.display = "block";
-    }
-    
-    // 最初のステップを表示
-    nextStep(1);
+
+      // 戻るボタンを処理する関数
+      function prevStep(stepNumber) {
+        // すべてのステップを非表示にする
+        for (let i = 1; i <= 6; i++) {
+          document.getElementById("step" + i).style.display = "none";
+        }
+        // 前のステップを表示
+        document.getElementById("step" + stepNumber).style.display = "block";
+        // 戻るステップの入力欄を監視
+        enableNextButton(stepNumber);
+      }
+
+      // 次へボタンの有効化
+      function enableNextButton(stepNumber) {
+        const inputField = document.getElementById("input" + stepNumber);
+        const nextButton = document.querySelector("#step" + stepNumber + " button:nth-of-type(1)");
+
+        // 「完了」と入力したら次へボタンを有効にする
+        if (inputField.value === "完了") {
+          nextButton.disabled = false;
+        } else {
+          nextButton.disabled = true;
+        }
+      }
+
+      // 最初のステップを表示
+      nextStep(1);
+    });
   </script>
 </body>
 </html>
