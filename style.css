@@ -1,8 +1,7 @@
 iframe {
   width: 100%;
-  height: 600px;
+  height: 100vh; /* 画面全体の高さを使う */
   border: none;
-  margin-bottom: 20px;
 }
 
 .hidden {
