@@ -8,11 +8,11 @@ const steps = [
 ];
 
 const passwords = [
-    "くろわっさん",
-    "あんぱん",
-    "くりーむぱん",
-    "さんどいっち",
-    "しおぱん"
+    "annpann",
+    "sanndoitti",
+    "siopann",
+    "kurowassann",
+    "meronnpann"
 ];
 
 let currentStep = 0;
