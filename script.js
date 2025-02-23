@@ -1,55 +1,98 @@
-const steps = [
-    "https://docs.google.com/document/d/e/2PACX-1vTne29t3wV1TZk1393D4YVlSJguE_x14OjBskkN6eLDSW6WhJ_kiVauP4jqJkDJ0uxyLmNywL6A1eTx/pub?embedded=true",
-    "https://docs.google.com/document/d/e/2PACX-1vQAEYIji4Q9EHRe_Tn9sXka_XnHun3AsrOVv1dOgWjRWr1ZN5hTzk18qB9g1myBH3_GHFCJY3XHbBSu/pub?embedded=true",
-    "https://docs.google.com/document/d/e/2PACX-1vQzQ_lgw1ze36jyojRzVMY7IoBR2ZWI1HwpP42xgjD4IFHlOfIFu5baSOIRP17cCc-vtuH5gPQn-OAk/pub?embedded=true",
-    "https://docs.google.com/document/d/e/2PACX-1vQZguQ9j_VTueyCwR7iUBc7L4stmWUrn0mE_BFMb8-SShRgkZt3V-Xs5l23ivcgPg0A7-bE8fFWR62y/pub?embedded=true",
-    "https://docs.google.com/document/d/e/2PACX-1vR8HQRODU-rZi-o3GMnQS0oPibwvxCHie6IafQb3wIeLJtJ3Ye-pnaSuF82vnoWrQj4e0i6s376_Q0S/pub?embedded=true",
-    "https://docs.google.com/document/d/e/2PACX-1vTUbWpQwkt1h-p1YU_-3_gbDPvGk08OmVVoiyjKCYFck_DDSGoMKu9FraTl17R18YSrV1JEFfK4jySu/pub?embedded=true"
+const pdfFiles = [
+    "コンサル.pdf",
+    "ステップ1-1.pdf", "ステップ1-2.pdf", "ステップ1-3.pdf",
+    "ステップ1-4.pdf", "ステップ1-5.pdf", "ステップ1-6.pdf",
+    "ステップ1-7.pdf", "ステップ2-1.pdf", "ステップ3-1.pdf",
+    "ステップ4-1.pdf", "ステップ5-1.pdf", "ステップ6-1.pdf"
 ];
 
-const passwords = [
-    "annpann",
-    "sanndoitti",
-    "siopann",
-    "kurowassann",
-    "meronnpann"
-];
+// 暗号ボタンを表示するページ
+const secretCodes = {
+    "ステップ1-1.pdf": "１",
+    "ステップ1-2.pdf": "２",
+    "ステップ1-3.pdf": "３",
+    "ステップ1-5.pdf": "５",
+    "ステップ1-6.pdf": "６"
+};
 
-let currentStep = 0;
+// パスワードが必要なページ
+const passwords = {
+    "ステップ1-5.pdf": "１２３",  // 1-4 → 1-5
+    "ステップ2-1.pdf": "５６"    // 1-7 → 2-1
+};
 
-const iframe = document.getElementById("step-frame");
-const passwordInput = document.getElementById("password");
-const prevButton = document.getElementById("prev-button");
-const nextButton = document.getElementById("next-button");
+let currentIndex = 0;
 
-function updateUI() {
-    iframe.src = steps[currentStep];
-    prevButton.disabled = currentStep === 0;
-    nextButton.disabled = false;
-    passwordInput.value = "";
-    passwordInput.placeholder = "パスワードを入力してください";
+function updateViewer() {
+    const pdfObject = document.getElementById("pdfObject");
+    const pdfLink = document.getElementById("pdfLink");
+    const pdfTitle = document.getElementById("pdfTitle");
+    const secretButtonContainer = document.getElementById("secretButtonContainer");
+    const secretText = document.getElementById("secretText");
+
+    pdfObject.data = pdfFiles[currentIndex];
+    pdfLink.href = pdfFiles[currentIndex];
+    pdfTitle.textContent = "現在のファイル: " + pdfFiles[currentIndex];
+
+    const passwordInput = document.getElementById("passwordInput");
+    const nextBtn = document.getElementById("nextBtn");
+
+    // **暗号ボタンの表示**
+    if (secretCodes[pdfFiles[currentIndex]]) {
+        secretButtonContainer.style.display = "block";
+        secretText.textContent = ""; // クリア
+    } else {
+        secretButtonContainer.style.display = "none";
+    }
+
+    // **パスワードの制御**
+    if (passwords[pdfFiles[currentIndex]]) {
+        passwordInput.style.display = "inline";
+        passwordInput.value = ""; // 入力をクリア
+        nextBtn.disabled = true;
+    } else {
+        passwordInput.style.display = "none";
+        nextBtn.disabled = false;
+    }
+
+    // **「戻る」ボタンの有効・無効化**
+    document.getElementById("prevBtn").disabled = (currentIndex === 0);
+
+    // **ページを一番上から表示**
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+    }, 100);
 }
 
-prevButton.addEventListener("click", () => {
-    if (currentStep > 0) {
-        currentStep--;
-        updateUI();
-    }
-});
+function revealSecret() {
+    const secretText = document.getElementById("secretText");
+    secretText.textContent = secretCodes[pdfFiles[currentIndex]] || "";
+}
 
-nextButton.addEventListener("click", () => {
-    const enteredPassword = passwordInput.value;
-    if (enteredPassword === passwords[currentStep]) {
-        if (currentStep < steps.length - 1) {
-            currentStep++;
-            updateUI();
-        } else {
-            nextButton.disabled = true;
-        }
+function nextStep() {
+    if (currentIndex < pdfFiles.length - 1) {
+        currentIndex++;
+        updateViewer();
+    }
+}
+
+function prevStep() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        updateViewer();
+    }
+}
+
+function checkPassword() {
+    const passwordInput = document.getElementById("passwordInput").value;
+    const currentPdf = pdfFiles[currentIndex];
+
+    if (passwords[currentPdf] && passwordInput === passwords[currentPdf]) {
+        document.getElementById("nextBtn").disabled = false;
     } else {
-        passwordInput.value = "";
-        passwordInput.placeholder = "パスワードが間違っています";
+        document.getElementById("nextBtn").disabled = true;
     }
-});
+}
 
-updateUI();
+// 初期表示の設定
+updateViewer();
