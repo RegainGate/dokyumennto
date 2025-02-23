@@ -3,21 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ステップナビゲーション</title>
-    <link rel="stylesheet" href="style.css">
+    <title>PDF スライドビューア</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <iframe id="step-frame" src="https://docs.google.com/document/d/e/2PACX-1vTne29t3wV1TZk1393D4YVlSJguE_x14OjBskkN6eLDSW6WhJ_kiVauP4jqJkDJ0uxyLmNywL6A1eTx/pub?embedded=true"></iframe>
-        <div class="password-input">
-            <!-- inputmode="text" を追加 -->
-            <input id="password" type="password" placeholder="パスワードを入力してください" inputmode="text">
-        </div>
-        <div class="controls">
-            <button id="prev-button" disabled>戻る</button>
-            <button id="next-button">次のステップへ</button>
-        </div>
+
+    <h2 id="pdfTitle">現在のファイル: コンサル.pdf</h2>
+
+    <div id="viewer">
+        <object id="pdfObject" type="application/pdf" data="コンサル.pdf"></object>
     </div>
+
+    <div class="controls">
+        <button id="prevBtn" onclick="prevStep()" disabled>戻る</button>
+        <input type="password" id="passwordInput" placeholder="" oninput="checkPassword()">
+        <button id="nextBtn" onclick="nextStep()" disabled>次のステップへ</button>
+    </div>
+
+    <div id="secretButtonContainer" style="display: none;">
+        <button onclick="revealSecret()">暗号を表示</button>
+        <span id="secretText"></span>
+    </div>
+
+    <div class="pdf-link">
+        <a id="pdfLink" href="コンサル.pdf" target="_blank">PDFを直接開く</a>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
