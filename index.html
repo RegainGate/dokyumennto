@@ -14,15 +14,15 @@
         <object id="pdfObject" type="application/pdf" data="コンサル.pdf"></object>
     </div>
 
+    <div id="codeSection" class="hidden">
+        <button id="codeBtn" onclick="revealCode()">暗号を見る</button>
+        <span id="codeText"></span>
+    </div>
+
     <div class="controls">
         <button id="prevBtn" onclick="prevStep()" disabled>戻る</button>
         <input type="password" id="passwordInput" placeholder="" oninput="checkPassword()">
         <button id="nextBtn" onclick="nextStep()" disabled>次のステップへ</button>
-    </div>
-
-    <div id="secretButtonContainer" style="display: none;">
-        <button onclick="revealSecret()">暗号を表示</button>
-        <span id="secretText"></span>
     </div>
 
     <div class="pdf-link">
