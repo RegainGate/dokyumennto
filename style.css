@@ -14,14 +14,14 @@ h2 {
 
 #viewer {
     width: 100vw;
-    height: 80vh;
+    height: 90vh; /* 画面いっぱいに表示 */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 object {
-    width: 90%;
+    width: 95%;
     height: 100%;
     border: none;
 }
