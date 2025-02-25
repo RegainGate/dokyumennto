@@ -14,14 +14,14 @@ h2 {
 
 #viewer {
     width: 100vw;
-    height: 90vh; /* 画面のほぼ全体を占める */
+    height: 80vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 object {
-    width: 100%;
+    width: 90%;
     height: 100%;
     border: none;
 }
@@ -58,10 +58,23 @@ input[type="password"] {
 }
 
 /* 暗号ボタン */
-#codeSection {
+.hint-container {
     margin-top: 15px;
+    display: none;
 }
 
-.hidden {
-    display: none;
+.hint-container button {
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.hint-container span {
+    margin-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
 }
