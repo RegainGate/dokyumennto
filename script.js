@@ -7,8 +7,8 @@ const pdfFiles = [
 ];
 
 const passwords = {
-    "ステップ1-4.pdf": "ADMJ",
-    "ステップ1-6.pdf": "OSOI",
+    "ステップ1-3.pdf": "ADMJ",
+    "ステップ1-5.pdf": "OSOI",
     "ステップ2-1.pdf": "1",
     "ステップ3-1.pdf": "2",
     "ステップ4-1.pdf": "3",
@@ -40,18 +40,18 @@ function updateViewer() {
     const passwordInput = document.getElementById("passwordInput");
     const nextBtn = document.getElementById("nextBtn");
 
-    // ヒントボタンの表示設定
+    // 暗号ボタンの表示設定
     if (hints[pdfFiles[currentIndex]]) {
         hintContainer.style.display = "block";
         hintText.textContent = "";
-        hintBtn.onclick = function() {
+        hintBtn.onclick = function () {
             hintText.textContent = hints[pdfFiles[currentIndex]];
         };
     } else {
         hintContainer.style.display = "none";
     }
 
-    // パスワード設定
+    // パスワードの設定
     if (passwords[pdfFiles[currentIndex]]) {
         passwordInput.style.display = "inline";
         passwordInput.value = "";
