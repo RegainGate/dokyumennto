@@ -1,21 +1,17 @@
 const pdfFiles = [
-    "コンサル.pdf",
-    "ステップ1-1.pdf", "ステップ1-2.pdf", "ステップ1-3.pdf",
-    "ステップ1-4.pdf", "ステップ1-5.pdf", "ステップ1-6.pdf",
-    "ステップ1-7.pdf"
+   "ステップ3-1.pdf",
+    "ステップ3-2.pdf",
+    "ステップ3-3.pdf"
 ];
 
 const passwords = {
-    "ステップ1-3.pdf": "ADMJ",
-    "ステップ1-5.pdf": "OSOI",
-    "ステップ1-6.pdf": "CAFUNE"
+   "ステップ3-1.pdf": "valexztra",
+    "ステップ3-2.pdf": "ISOLE"
 };
 
 const hints = {
-    "ステップ1-1.pdf": "AD",
-    "ステップ1-2.pdf": "MJ",
-    "ステップ1-4.pdf": "OSOI",
-    "ステップ1-6.pdf": "CAFUNE"
+    "ステップ3-1.pdf": "valexztra",
+    "ステップ3-2.pdf": "ISOLE"
 };
 
 let currentIndex = 0;
